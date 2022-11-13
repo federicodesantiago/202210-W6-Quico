@@ -1,5 +1,5 @@
 {
-    "name": "202210-w6-clase",
+    "name": "202210-w5-quico",
     "version": "1.0.0",
     "description": "",
     "main": "index.js",
@@ -7,7 +7,7 @@
     "scripts": {
         "test": "jest --watchAll --coverage",
         "test:prod": "jest --watchAll --coverage --watchAll=false",
-        "start": "tsc --watch",
+        "start": "",
         "lint": "eslint .",
         "prepare": "husky install"
     },
