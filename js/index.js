@@ -1,14 +1,28 @@
-function generateCanvas(arrLength) {
-    let arrCanvas = [];
-    for (let i = 0; i < arrLength; i++) {
-        arrCanvas[i] = [];
-        for (let j = 0; j < arrLength; j++)
-            arrCanvas[i][j] = Math.round(Math.random());
-    }
-    return arrCanvas;
-}
+// function generateCanvas(arrLength) {
+//     let arrCanvas = [];
+//     for (let i = 0; i < arrLength; i++) {
+//         arrCanvas[i] = [];
+//         for (let j = 0; j < arrLength; j++)
+//             arrCanvas[i][j] = Math.round(Math.random());
+//     }
+//     return arrCanvas;
+// }
+let arrCanvas = [
+    [0, 1, 0, 1, 0],
+    [1, 1, 1, 0, 1],
+    [0, 0, 1, 0, 1],
+    [0, 1, 0, 1, 0],
+    [1, 0, 0, 0, 1],
+];
 
-function checkValues(arrCanvas) {
+let arrNew = [
+    [0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0],
+];
+function checkValues() {
     for (let i = 0; i <= arrCanvas.length - 1; i++) {
         for (let j = 0; j <= arrCanvas.length - 1; j++) {
             let contAlive = 0;
@@ -53,26 +67,54 @@ function checkValues(arrCanvas) {
                 contAlive++;
             }
             if (contAlive < 2 || contAlive > 3) {
-                arrCanvas[i][j] = 0;
+                if (
+                    i < 0 ||
+                    j < 0 ||
+                    i > arrCanvas.length - 1 ||
+                    j > arrCanvas.length - 1
+                ) {
+                    contAlive;
+                } else {
+                    arrNew[i][j] = 0;
+                }
+            }
+            if (contAlive >= 2 || contAlive < 3) {
+                if (
+                    i < 0 ||
+                    j < 0 ||
+                    i > arrCanvas.length - 1 ||
+                    j > arrCanvas.length - 1
+                ) {
+                    contAlive;
+                } else {
+                    arrNew[i][j] = arrCanvas[i][j];
+                }
             }
             if (contAlive === 3) {
-                arrCanvas[i][j] = 1;
+                if (
+                    i < 0 ||
+                    j < 0 ||
+                    i > arrCanvas.length - 1 ||
+                    j > arrCanvas.length - 1
+                ) {
+                    contAlive;
+                } else {
+                    arrNew[i][j] = 1;
+                }
             }
         }
     }
-    console.table(arrCanvas);
+    arrCanvas = arrNew;
+    console.table(arrNew);
 }
 
 export function gameOfLife() {
-    let arrLength = 5;
-    const intervalID = setInterval(
-        checkValues,
-        1000,
-        generateCanvas(arrLength)
-    );
+    //let arrLength = 3;
+    const intervalID = setInterval(checkValues, 1000);
 
     //checkValues(arrCanvas);
     setTimeout(() => {
         clearInterval(intervalID);
     }, 10000);
 }
+gameOfLife();
